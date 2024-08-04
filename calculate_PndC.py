@@ -69,4 +69,18 @@ if st.button("Calculate Combinations"):
     for combo in combinations:
         result = ", ".join(f"Box {i + 1}: {count}" for i, count in enumerate(combo[:-2]))
         total_volume, total_weight = combo[-2], combo[-1]
-        st.write(f"{result}, Total Volume: {total_volume:.2f} cubic feet, Total Weight: {total_weight} kg")
+        
+        volume_limit_reached = total_volume >= truck_volume * 0.95
+        weight_limit_reached = total_weight >= truck_weight_capacity * 0.95
+        
+        if volume_limit_reached:
+            volume_status = "Volume limit reached!"
+        else:
+            volume_status = "Volume OK"
+            
+        if weight_limit_reached:
+            weight_status = "Weight limit reached!"
+        else:
+            weight_status = "Weight OK"
+
+        st.write(f"{result}, Total Volume: {total_volume:.2f} cubic feet ({volume_status}), Total Weight: {total_weight} kg ({weight_status})")
