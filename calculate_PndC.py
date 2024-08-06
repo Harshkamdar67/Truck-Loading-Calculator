@@ -36,6 +36,13 @@ def calculate_distance(from_location, to_location):
     else:
         return None
 
+
+def calculate_transport_cost(distance, total_weight, petrol_price=94.97, mileage=4, weight_factor=0.1, base_weight=6000):
+    fuel_needed = distance / mileage
+    weight_adjustment = 1 + (weight_factor * (total_weight / base_weight))
+    total_cost = fuel_needed * petrol_price * weight_adjustment
+    return total_cost
+
 # Streamlit UI
 st.set_page_config(page_title="Truck Loading Optimization", page_icon="🚚", layout="centered")
 
@@ -206,9 +213,9 @@ else:
             distance = calculate_distance(from_location, to_location)
             if distance is not None:
                 price_per_km = 5  # Placeholder for pricing logic
-                estimated_price = distance * price_per_km
+                estimated_price = calculate_transport_cost(distance , combo['Total Weight'])
                 st.write(f"Distance: {distance:.2f} km")
-                st.write(f"Estimated Transport Price: ${estimated_price:.2f}")
+                st.write(f"Estimated Transport Price: ₹{estimated_price:.2f}")
             else:
                 st.write("Error: Unable to calculate distance. Please check the locations and try again.")
         else:
