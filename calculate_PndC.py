@@ -282,8 +282,8 @@ elif st.session_state.step == 4:
 
         def view_3d(idx):
             st.session_state.view = '3d_view'
-            st.session_state.image_path = "Screenshot 2024-08-08 at 14.50.19.png"  # Replace with your image path
-
+            image_path = "Screenshot 2024-08-08 at 14.50.19.png" 
+            st.image(image_path, caption=None, width=None, use_column_width=None, clamp=False, channels="RGB", output_format="auto")
 
         headers = ["Combination", "Small Box", "Medium Box", "Large Box", "Total Volume Utilized", "Total Weight", "Select", "3D View"]
         cols = st.columns(len(headers))
